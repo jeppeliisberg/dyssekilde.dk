@@ -36,3 +36,6 @@
 
 # Ignore auto-generated Spina Tailwind CSS configuration
 /app/assets/config/spina/tailwind.config.js
+
+# Claude Code local settings (personal permissions)
+/.claude/settings.local.json
