@@ -25,15 +25,13 @@ production:
     username: dyssekilde_dk
     password: <%= ENV["DYSSEKILDE_DK_DATABASE_PASSWORD"] %>
     host: <%= ENV.fetch("DB_HOST") { "localhost" } %>
+    sslmode: prefer
   cache:
     <<: *primary_production
-    database: dyssekilde_dk_production_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
-    database: dyssekilde_dk_production_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
-    database: dyssekilde_dk_production_cable
     migrations_paths: db/cable_migrate
