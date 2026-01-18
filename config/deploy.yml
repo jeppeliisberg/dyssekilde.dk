@@ -11,14 +11,12 @@ servers:
       - 91.98.205.80
     options:
       network: cloudron
+      publish:
+        - "127.0.0.1:3000:3000"
     cmd: bin/rails server -b 0.0.0.0 -p 3000
 
 # Disable kamal-proxy since Cloudron handles HTTP routing
 proxy: false
-
-# Publish port for Cloudron's reverse proxy
-ports:
-  - "127.0.0.1:3000:3000"
 
 # Where you keep your container images.
 registry:
