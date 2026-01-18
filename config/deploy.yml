@@ -41,8 +41,8 @@ env:
     # Set number of cores available to the application on each server (default: 1).
     # WEB_CONCURRENCY: 2
 
-    # Database host - use Cloudron's PostgreSQL on the cloudron Docker network.
-    DB_HOST: postgresql
+    # Database host - use Cloudron's PostgreSQL IPv4 address (hostname resolves to IPv6 which pg_hba.conf rejects)
+    DB_HOST: 172.18.30.2
 
     # Log everything from Rails
     # RAILS_LOG_LEVEL: debug
