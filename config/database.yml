@@ -25,7 +25,6 @@ production:
     username: dyssekilde_dk
     password: <%= ENV["DYSSEKILDE_DK_DATABASE_PASSWORD"] %>
     host: <%= ENV.fetch("DB_HOST") { "localhost" } %>
-    sslmode: prefer
   cache:
     <<: *primary_production
     migrations_paths: db/cache_migrate

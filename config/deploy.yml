@@ -10,7 +10,6 @@ servers:
     hosts:
       - 91.98.205.80
     options:
-      network: cloudron
       publish:
         - "127.0.0.1:3080:3080"
     cmd: bin/rails server -b 0.0.0.0 -p 3080
@@ -41,8 +40,8 @@ env:
     # Set number of cores available to the application on each server (default: 1).
     # WEB_CONCURRENCY: 2
 
-    # Database host - use Cloudron's PostgreSQL IPv4 address (hostname resolves to IPv6 which pg_hba.conf rejects)
-    DB_HOST: 172.18.30.2
+    # Database host - Kamal-managed PostgreSQL container
+    DB_HOST: dyssekilde_dk-db
 
     # Log everything from Rails
     # RAILS_LOG_LEVEL: debug
@@ -88,4 +87,19 @@ builder:
 # Use a different ssh user than root
 # ssh:
 #   user: app
+
+# Kamal-managed PostgreSQL (since Cloudron's is locked down)
+accessories:
+  db:
+    image: postgres:16
+    host: 91.98.205.80
+    port: "127.0.0.1:5432:5432"
+    env:
+      clear:
+        POSTGRES_USER: dyssekilde_dk
+        POSTGRES_DB: dyssekilde_dk_production
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data
 
