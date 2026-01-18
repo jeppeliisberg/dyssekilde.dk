@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-DyssekildeDk is a Ruby on Rails 8.1.2 application using SQLite3, Hotwire (Turbo + Stimulus), and Import Maps for JavaScript.
+DyssekildeDk is a Ruby on Rails 8.1.2 application using PostgreSQL, Hotwire (Turbo + Stimulus), and Import Maps for JavaScript.
 
 ## Common Commands
 
@@ -38,9 +38,9 @@ DyssekildeDk is a Ruby on Rails 8.1.2 application using SQLite3, Hotwire (Turbo 
 - Propshaft asset pipeline
 
 **Backend Services (Solid Stack):**
-- Solid Queue for background jobs (separate SQLite database)
-- Solid Cache for caching (separate SQLite database)
-- Solid Cable for Action Cable (separate SQLite database)
+- Solid Queue for background jobs (separate PostgreSQL database)
+- Solid Cache for caching (separate PostgreSQL database)
+- Solid Cable for Action Cable (separate PostgreSQL database)
 
 **Deployment:**
 - Docker multi-stage builds with Kamal orchestration
