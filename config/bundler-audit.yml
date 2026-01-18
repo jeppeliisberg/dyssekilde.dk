@@ -2,4 +2,7 @@
 # CVEs that are not relevant to the application can be enumerated on the ignore list below.
 
 ignore:
-  - CVE-THAT-DOES-NOT-APPLY
+  # Spina CSRF in /admin/media_folders - no patch available, vendor unresponsive.
+  # Advisory says 2.18.0 affected, we're on 2.20.0 (latest).
+  # Monitor: https://github.com/advisories/GHSA-wqw3-p83g-r24v
+  - CVE-2024-7106
