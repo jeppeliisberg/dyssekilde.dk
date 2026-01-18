@@ -2,7 +2,7 @@
 service: dyssekilde_dk
 
 # Name of the container image (use your-user/app-name on external registries).
-image: ghcr.io/jeppeliisberg/dyssekilde-dk
+image: jeppeliisberg/dyssekilde-dk
 
 # Deploy to these servers.
 servers:
@@ -64,6 +64,12 @@ volumes:
 # hitting 404 on in-flight requests. Combines all files from new and old
 # version inside the asset_path.
 asset_path: /rails/public/assets
+
+# Use json-file log driver (server defaults to journald which doesn't support max-size)
+logging:
+  driver: json-file
+  options:
+    max-size: 10m
 
 # Configure the image builder.
 builder:
