@@ -14,9 +14,8 @@ servers:
       publish:
         - "127.0.0.1:3000:3000"
     cmd: bin/rails server -b 0.0.0.0 -p 3000
-
-# Disable kamal-proxy since Cloudron handles HTTP routing
-proxy: false
+    # Disable kamal-proxy since Cloudron handles HTTP routing
+    proxy: false
 
 # Where you keep your container images.
 registry:
