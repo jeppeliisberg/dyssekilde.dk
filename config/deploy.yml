@@ -12,8 +12,8 @@ servers:
     options:
       network: cloudron
       publish:
-        - "127.0.0.1:3000:3000"
-    cmd: bin/rails server -b 0.0.0.0 -p 3000
+        - "127.0.0.1:3080:3080"
+    cmd: bin/rails server -b 0.0.0.0 -p 3080
     # Disable kamal-proxy since Cloudron handles HTTP routing
     proxy: false
 
