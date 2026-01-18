@@ -39,3 +39,6 @@
 
 # Claude Code local settings (personal permissions)
 /.claude/settings.local.json
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

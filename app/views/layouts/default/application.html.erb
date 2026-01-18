@@ -1,12 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
     <title><%= current_spina_account.name %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
-  <body>
-    <%= render 'default/shared/navigation' %>
-    
-    <%= yield %>
+  <body class="h-full bg-stone-50">
+    <div class="min-h-screen flex flex-col md:flex-row">
+      <!-- Left side: Hero image area -->
+      <div class="hero-image-side relative w-full md:w-1/2 lg:w-3/5 h-64 md:h-auto md:min-h-screen md:sticky md:top-0">
+        <%= yield :hero_image %>
+
+        <!-- Default gradient background if no image -->
+        <% unless content_for?(:hero_image) %>
+          <div class="absolute inset-0 bg-gradient-to-br from-stone-400 via-stone-500 to-stone-600"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent"></div>
+        <% end %>
+      </div>
+
+      <!-- Right side: Content area -->
+      <div class="content-side w-full md:w-1/2 lg:w-2/5 flex flex-col">
+        <main class="flex-1 px-8 py-12 md:px-12 lg:px-16 md:py-16 lg:py-24">
+          <%= yield %>
+        </main>
+
+        <!-- Footer -->
+        <footer class="px-8 py-8 md:px-12 lg:px-16 text-sm text-stone-500">
+          <p>&copy; <%= Date.current.year %> <%= current_spina_account.name %></p>
+        </footer>
+      </div>
+    </div>
   </body>
 </html>

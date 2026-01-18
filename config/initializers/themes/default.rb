@@ -21,7 +21,8 @@ Spina::Theme.register do |theme|
   # - Option
   # - Repeater
   theme.parts = [
-    { name: "text", title: "Body", hint: "Your main content", part_type: "Spina::Parts::Text" }
+    { name: "text", title: "Body", hint: "Your main content", part_type: "Spina::Parts::Text" },
+    { name: "subtitle", title: "Subtitle", hint: "Shown below the page title", part_type: "Spina::Parts::Line" }
   ]
 
   # View templates
@@ -29,7 +30,7 @@ Spina::Theme.register do |theme|
   # You define which parts you want to enable for every view template
   # by referencing them from the theme.parts configuration above.
   theme.view_templates = [
-    { name: "homepage", title: "Homepage", parts: %w[text] },
+    { name: "homepage", title: "Homepage", parts: %w[subtitle text] },
     { name: "show", title: "Page", parts: %w[text] }
   ]
 
