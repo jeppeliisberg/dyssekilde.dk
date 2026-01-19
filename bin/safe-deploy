@@ -1,0 +1,54 @@
+#!/bin/bash
+set -e
+
+# Safe deploy script for Kamal without kamal-proxy
+# Stops old container before deploy, restarts it if deploy fails
+
+SERVER="91.98.205.80"
+CONTAINER_FILTER="name=dyssekilde_dk-web"
+
+echo "=== Safe Deploy for Dyssekilde.dk ==="
+
+# Get the currently running container ID
+echo "Finding running container..."
+OLD_CONTAINER=$(ssh root@$SERVER "docker ps -q --filter '$CONTAINER_FILTER'" 2>/dev/null || true)
+
+if [ -n "$OLD_CONTAINER" ]; then
+  echo "Found running container: $OLD_CONTAINER"
+  echo "Stopping old container..."
+  ssh root@$SERVER "docker stop $OLD_CONTAINER"
+  echo "Old container stopped."
+else
+  echo "No running container found (first deploy or already stopped)."
+fi
+
+# Run the deploy
+echo ""
+echo "=== Starting Kamal deploy ==="
+if bin/kamal deploy; then
+  echo ""
+  echo "=== Deploy successful! ==="
+
+  # Clean up old stopped containers (optional, keeps things tidy)
+  echo "Cleaning up old containers..."
+  ssh root@$SERVER "docker container prune -f --filter 'label=service=dyssekilde_dk'" 2>/dev/null || true
+  echo "Done."
+else
+  DEPLOY_EXIT_CODE=$?
+  echo ""
+  echo "=== Deploy FAILED (exit code: $DEPLOY_EXIT_CODE) ==="
+
+  if [ -n "$OLD_CONTAINER" ]; then
+    echo "Restarting old container for recovery..."
+    if ssh root@$SERVER "docker start $OLD_CONTAINER"; then
+      echo "Old container restarted successfully. Site should be back up."
+    else
+      echo "WARNING: Failed to restart old container!"
+      echo "Manual intervention required. Container ID was: $OLD_CONTAINER"
+    fi
+  else
+    echo "No old container to restart."
+  fi
+
+  exit $DEPLOY_EXIT_CODE
+fi

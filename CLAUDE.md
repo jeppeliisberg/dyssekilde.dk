@@ -29,6 +29,11 @@ DyssekildeDk is a Ruby on Rails 8.1.2 application using PostgreSQL, Hotwire (Tur
 - `bin/rails db:prepare` - Create or migrate database
 - `bin/rails db:migrate` - Run pending migrations
 
+### Deployment
+- `bin/safe-deploy` - **Use this instead of `bin/kamal deploy`** (handles port conflicts with Cloudron proxy)
+- `bin/kamal console` - Rails console on production
+- `bin/kamal logs` - Tail production logs
+
 ## Architecture
 
 **Frontend Stack:**
