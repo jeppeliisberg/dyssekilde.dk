@@ -168,10 +168,13 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Add server to known hosts
+        run: ssh-keyscan -H 91.98.205.80 >> ~/.ssh/known_hosts
+
       - name: Deploy with Kamal
         env:
           KAMAL_REGISTRY_USERNAME: ${{ secrets.KAMAL_REGISTRY_USERNAME }}
           KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           DYSSEKILDE_DK_DATABASE_PASSWORD: ${{ secrets.DYSSEKILDE_DK_DATABASE_PASSWORD }}
-        run: bin/kamal deploy
+        run: bin/safe-deploy
