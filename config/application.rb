@@ -23,5 +23,9 @@ module DyssekildeDk
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Internationalization
+    config.i18n.default_locale = :da
+    config.i18n.available_locales = [ :da, :en ]
   end
 end

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full">
+<html lang="<%= I18n.locale %>" class="h-full">
   <head>
     <title><%= current_spina_account.name %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,6 +9,10 @@
     <%= javascript_importmap_tags %>
   </head>
   <body class="h-full bg-stone-50">
+    <% main_navigation = Spina::Navigation.find_by(name: 'main') %>
+    <%= render HeaderComponent.new(
+      navigation_items: main_navigation&.navigation_items || []
+    ) %>
     <div class="min-h-screen flex flex-col md:flex-row">
       <!-- Left side: Hero image area -->
       <div class="hero-image-side relative w-full md:w-1/2 h-64 md:h-auto md:min-h-screen md:sticky md:top-0">
@@ -16,7 +20,7 @@
 
         <!-- Default hero image from media library -->
         <% unless content_for?(:hero_image) %>
-          <% hero_image = Spina::Image.joins(file_attachment: :blob).find_by(active_storage_blobs: { filename: "hero_image.jpg" }) %>
+          <% hero_image = Spina::Image.joins(file_attachment: :blob).find_by(active_storage_blobs: { filename: "hero_image.jpeg" }) %>
           <% if hero_image&.file&.attached? %>
             <%= image_tag main_app.url_for(hero_image.file), class: "absolute inset-0 w-full h-full object-cover", alt: "Dyssekilde" %>
             <div class="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent"></div>

@@ -3,12 +3,12 @@ Spina.configure do |config|
   # ===============
   # All locales your content should be available in.
   # Defaults to I18n.default_locale
-  # config.locales = [:en, :nl]
+  config.locales = [ :da, :en ]
 
   # Backend title
   # ===============
   # Set <title> for the admin panel. Defaults to "Spina CMS"
-  # config.backend_title = "Spina CMS"
+  config.backend_title = "Dyssekilde CMS"
 
   # Backend path
   # ===============

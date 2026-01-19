@@ -41,10 +41,13 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 # Spina CMS [https://spinacms.com]
-gem "spina"
+gem "spina", github: "SpinaCMS/Spina", branch: "main"
 
 # Tailwind CSS for Rails [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
+
+# Rails translations for common locales [https://github.com/svenfuchs/rails-i18n]
+gem "rails-i18n"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

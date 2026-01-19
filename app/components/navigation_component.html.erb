@@ -1,0 +1,9 @@
+<% if desktop? %>
+  <% items.each do |item| %>
+    <%= link_to item_title(item), item_path(item), class: "text-sm/6 font-semibold text-white" %>
+  <% end %>
+<% else %>
+  <% items.each do |item| %>
+    <%= link_to item_title(item), item_path(item), class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" %>
+  <% end %>
+<% end %>
