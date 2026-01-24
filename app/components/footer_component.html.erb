@@ -1,1 +1,10 @@
-<%# Paste Tailwind Plus footer template here %>
+<footer class="bg-emerald-500 dark:bg-emerald-900">
+  <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+    <nav aria-label="Footer" class="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm/6">
+      <% navigation_items.each do |item| %>
+        <%= link_to item_title(item), item_path(item), class: "text-emerald-100 hover:text-white dark:text-emerald-500 dark:hover:text-white" %>
+      <% end %>
+    </nav>
+    <p class="mt-10 text-center text-sm/6 text-emerald-100 dark:text-emerald-500">&copy; <%= Date.current.year %> <%= helpers.current_spina_account.name %></p>
+  </div>
+</footer>

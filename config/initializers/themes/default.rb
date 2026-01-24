@@ -60,7 +60,8 @@ Spina::Theme.register do |theme|
   # If your project has multiple navigations, it can be useful to configure multiple
   # navigations.
   theme.navigations = [
-    { name: "main", label: "Main navigation" }
+    { name: "main", label: "Main navigation" },
+    { name: "footer", label: "Footer navigation" }
   ]
 
   # Layout parts (optional)

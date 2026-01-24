@@ -47,8 +47,9 @@
 
     <%= yield %>
 
-    <footer class="px-8 py-8 text-center text-sm text-stone-500 border-t border-stone-200">
-      <p>&copy; <%= Date.current.year %> <%= current_spina_account.name %></p>
-    </footer>
+    <% footer_navigation = Spina::Navigation.find_by(name: 'footer') %>
+    <%= render FooterComponent.new(
+      navigation_items: footer_navigation&.navigation_items || []
+    ) %>
   </body>
 </html>
