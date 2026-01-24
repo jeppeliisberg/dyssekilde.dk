@@ -168,11 +168,15 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Add server to known hosts
+      - name: Configure SSH for deployment
         run: |
           mkdir -p ~/.ssh
           ssh-keygen -R 91.98.205.80 2>/dev/null || true
           ssh-keyscan -H 91.98.205.80 >> ~/.ssh/known_hosts
+          echo "Host 91.98.205.80
+            StrictHostKeyChecking accept-new
+            UserKnownHostsFile ~/.ssh/known_hosts" >> ~/.ssh/config
+          chmod 600 ~/.ssh/config
 
       - name: Deploy with Kamal
         env:
