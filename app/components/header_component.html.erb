@@ -6,7 +6,7 @@
       </a>
     </div>
     <div class="flex lg:hidden">
-      <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-indigo-300 dark:text-indigo-200">
+      <button type="button" command="show-modal" commandfor="mobile-menu" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-emerald-300 dark:text-emerald-200">
         <span class="sr-only">Open main menu</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
           <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -19,9 +19,9 @@
     <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-2">
       <% available_locales.each_with_index do |locale, index| %>
         <%= link_to locale.to_s.upcase, locale_switch_path(locale),
-            class: "text-sm/6 font-semibold #{locale == current_locale ? 'text-white' : 'text-indigo-200 hover:text-white'}" %>
+            class: "text-sm/6 font-semibold #{locale == current_locale ? 'text-white' : 'text-emerald-200 hover:text-white'}" %>
         <% if index < available_locales.size - 1 %>
-          <span class="text-indigo-300">|</span>
+          <span class="text-emerald-300">|</span>
         <% end %>
       <% end %>
     </div>
@@ -32,7 +32,7 @@
         <el-dialog-panel class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:bg-gray-900 dark:sm:ring-gray-100/10">
           <div class="flex items-center justify-between">
             <a href="/" class="-m-1.5 p-1.5">
-              <span class="text-xl font-bold text-indigo-600 dark:text-emerald-500">Dyssekilde</span>
+              <span class="text-xl font-bold text-emerald-600 dark:text-emerald-500">Dyssekilde</span>
             </a>
             <button type="button" command="close" commandfor="mobile-menu" class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-400">
               <span class="sr-only">Close menu</span>
