@@ -33,7 +33,8 @@ Spina::Theme.register do |theme|
     { name: "house_max_guests", title: "Max Guests", part_type: "Spina::Parts::Line" },
     { name: "house_sqm", title: "Square Meters", part_type: "Spina::Parts::Line" },
     { name: "house_pricing", title: "Pricing", part_type: "Spina::Parts::Line" },
-    { name: "house_contact", title: "Contact", part_type: "Spina::Parts::MultiLine" }
+    { name: "house_contact", title: "Contact", part_type: "Spina::Parts::MultiLine" },
+    { name: "og_image", title: "Social Share Image", hint: "Image shown when page is shared on social media (1200x630 recommended)", part_type: "Spina::Parts::Image" }
   ]
 
   # View templates
@@ -45,7 +46,7 @@ Spina::Theme.register do |theme|
     { name: "show", title: "Page", parts: %w[hero_image text] },
     { name: "gallery", title: "Gallery", parts: %w[text gallery_images] },
     { name: "house", title: "House", parts: %w[house_name house_description house_images house_bedrooms house_bathrooms house_max_guests house_sqm house_pricing house_contact] },
-    { name: "houses", title: "Houses Collection", parts: %w[text] }
+    { name: "houses", title: "Houses Collection", parts: %w[text og_image] }
   ]
 
   # Custom pages
