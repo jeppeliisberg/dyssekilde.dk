@@ -24,7 +24,16 @@ Spina::Theme.register do |theme|
     { name: "text", title: "Body", hint: "Your main content", part_type: "Spina::Parts::Text" },
     { name: "subtitle", title: "Subtitle", hint: "Shown below the page title", part_type: "Spina::Parts::Line" },
     { name: "hero_image", title: "Hero Image", hint: "Full-height image shown on the left side", part_type: "Spina::Parts::Image" },
-    { name: "gallery_images", title: "Gallery Images", hint: "Images for the gallery grid", part_type: "Spina::Parts::ImageCollection" }
+    { name: "gallery_images", title: "Gallery Images", hint: "Images for the gallery grid", part_type: "Spina::Parts::ImageCollection" },
+    { name: "house_name", title: "House Name", hint: "Friendly name like 'Cozy Cottage'", part_type: "Spina::Parts::Line" },
+    { name: "house_description", title: "Description", part_type: "Spina::Parts::Text" },
+    { name: "house_images", title: "Photos", part_type: "Spina::Parts::ImageCollection" },
+    { name: "house_bedrooms", title: "Bedrooms", part_type: "Spina::Parts::Line" },
+    { name: "house_bathrooms", title: "Bathrooms", part_type: "Spina::Parts::Line" },
+    { name: "house_max_guests", title: "Max Guests", part_type: "Spina::Parts::Line" },
+    { name: "house_sqm", title: "Square Meters", part_type: "Spina::Parts::Line" },
+    { name: "house_pricing", title: "Pricing", part_type: "Spina::Parts::Line" },
+    { name: "house_contact", title: "Contact", part_type: "Spina::Parts::MultiLine" }
   ]
 
   # View templates
@@ -34,7 +43,9 @@ Spina::Theme.register do |theme|
   theme.view_templates = [
     { name: "homepage", title: "Homepage", parts: %w[hero_image subtitle text] },
     { name: "show", title: "Page", parts: %w[hero_image text] },
-    { name: "gallery", title: "Gallery", parts: %w[text gallery_images] }
+    { name: "gallery", title: "Gallery", parts: %w[text gallery_images] },
+    { name: "house", title: "House", parts: %w[house_name house_description house_images house_bedrooms house_bathrooms house_max_guests house_sqm house_pricing house_contact] },
+    { name: "houses", title: "Houses Collection", parts: %w[text] }
   ]
 
   # Custom pages
@@ -59,7 +70,9 @@ Spina::Theme.register do |theme|
   # Resources (optional)
   # Think of resources as a collection of pages. They are managed separately in Spina
   # allowing you to separate these pages from the 'main' collection of pages.
-  theme.resources = []
+  theme.resources = [
+    { name: "houses", label: "Rental Houses", view_template: "house", order_by: "title" }
+  ]
 
   # Plugins (optional)
   theme.plugins = []
