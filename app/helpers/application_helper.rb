@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def meta_description
-    return current_page.seo_description if current_page.seo_description.present?
+    return current_page.description if current_page.description.present?
 
     text = extract_page_text
     return nil if text.blank?

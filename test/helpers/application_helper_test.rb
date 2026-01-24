@@ -3,11 +3,11 @@ require "test_helper"
 class ApplicationHelperTest < ActionView::TestCase
   # Mock page object for testing
   class MockPage
-    attr_accessor :seo_title, :seo_description, :title, :contents
+    attr_accessor :seo_title, :description, :title, :contents
 
     def initialize(attrs = {})
       @seo_title = attrs[:seo_title]
-      @seo_description = attrs[:seo_description]
+      @description = attrs[:description]
       @title = attrs[:title] || "Default Page"
       @contents = attrs[:contents] || {}
       @parts = attrs[:parts] || {}
@@ -69,16 +69,16 @@ class ApplicationHelperTest < ActionView::TestCase
 
   # meta_description tests
 
-  test "meta_description returns seo_description when present" do
-    @mock_page.seo_description = "This is a custom meta description for SEO purposes."
+  test "meta_description returns description when present" do
+    @mock_page.description = "This is a custom meta description for SEO purposes."
 
     assert_equal "This is a custom meta description for SEO purposes.", meta_description
   end
 
-  test "meta_description extracts and truncates text content when no seo_description" do
+  test "meta_description extracts and truncates text content when no description" do
     long_text = "This is a very long piece of text content that should be truncated to fit within the meta description character limit. " \
                 "It contains more than one hundred sixty characters to ensure proper truncation behavior is tested."
-    @mock_page.seo_description = nil
+    @mock_page.description = nil
     @mock_page.contents = { text: long_text }
 
     result = meta_description
@@ -88,21 +88,21 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "meta_description returns nil when no content available" do
-    @mock_page.seo_description = nil
+    @mock_page.description = nil
     @mock_page.contents = {}
 
     assert_nil meta_description
   end
 
   test "meta_description falls back to house_description when text is not present" do
-    @mock_page.seo_description = nil
+    @mock_page.description = nil
     @mock_page.contents = { text: nil, house_description: "A cozy house in Dyssekilde." }
 
     assert_equal "A cozy house in Dyssekilde.", meta_description
   end
 
   test "meta_description strips HTML tags from content" do
-    @mock_page.seo_description = nil
+    @mock_page.description = nil
     @mock_page.contents = { text: "<p>This is <strong>bold</strong> and <em>italic</em> text.</p>" }
 
     result = meta_description
@@ -114,7 +114,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "meta_description returns nil when content is blank string" do
-    @mock_page.seo_description = nil
+    @mock_page.description = nil
     @mock_page.contents = { text: "   " }
 
     assert_nil meta_description
@@ -123,7 +123,7 @@ class ApplicationHelperTest < ActionView::TestCase
   test "meta_description truncates at word boundary" do
     # Create text that's over 162 chars with a word boundary near the limit
     text = "Word " * 40  # 200 chars
-    @mock_page.seo_description = nil
+    @mock_page.description = nil
     @mock_page.contents = { text: text }
 
     result = meta_description
