@@ -16,18 +16,12 @@
     <div class="min-h-screen flex flex-col md:flex-row">
       <!-- Left side: Hero image area -->
       <div class="hero-image-side relative w-full md:w-1/2 h-64 md:h-auto md:min-h-screen md:sticky md:top-0">
-        <%= yield :hero_image %>
-
-        <!-- Default hero image from media library -->
-        <% unless content_for?(:hero_image) %>
-          <% hero_image = Spina::Image.joins(file_attachment: :blob).find_by(active_storage_blobs: { filename: "hero_image.jpeg" }) %>
-          <% if hero_image&.file&.attached? %>
-            <%= image_tag main_app.url_for(hero_image.file), class: "absolute inset-0 w-full h-full object-cover", alt: "Dyssekilde" %>
-            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent"></div>
-          <% else %>
-            <div class="absolute inset-0 bg-gradient-to-br from-stone-400 via-stone-500 to-stone-600"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent"></div>
-          <% end %>
+        <% if current_page.content.image_url(:hero_image).present? %>
+          <%= current_page.content.image_tag(:hero_image, { resize_to_limit: [1920, 1920] }, { class: "absolute inset-0 w-full h-full object-cover" }) %>
+          <div class="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent"></div>
+        <% else %>
+          <div class="absolute inset-0 bg-gradient-to-br from-stone-400 via-stone-500 to-stone-600"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent"></div>
         <% end %>
       </div>
 
