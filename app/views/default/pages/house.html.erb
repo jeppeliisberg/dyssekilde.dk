@@ -1,0 +1,131 @@
+<%
+  # Collect image data for the lightbox (reuses existing lightbox controller)
+  gallery_data = []
+  images(:house_images) do |image|
+    gallery_data << {
+      url: content.image_url(image, resize_to_limit: [2048, 2048]),
+      alt: image.alt.presence || current_page.title
+    }
+  end
+%>
+
+<article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16"
+         data-controller="lightbox"
+         data-lightbox-images-value="<%= gallery_data.to_json %>">
+  <!-- Header -->
+  <header class="mb-8">
+    <% if content(:house_name).present? %>
+      <p class="text-lg text-emerald-700 font-medium mb-2"><%= content(:house_name) %></p>
+    <% end %>
+    <h1 class="text-3xl md:text-4xl font-light text-stone-800 tracking-tight">
+      <%= current_page.title %>
+    </h1>
+  </header>
+
+  <!-- Photo gallery -->
+  <% if gallery_data.any? %>
+    <div class="mb-10">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+        <% index = 0 %>
+        <% images(:house_images) do |image| %>
+          <button type="button"
+                  class="group relative aspect-square overflow-hidden rounded-lg bg-stone-200 cursor-pointer <%= index == 0 ? 'col-span-2 row-span-2' : '' %>"
+                  data-action="lightbox#open"
+                  data-index="<%= index %>">
+            <%= content.image_tag image, { resize_to_fill: [600, 600] },
+                { class: "absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
+                  loading: index == 0 ? "eager" : "lazy" } %>
+            <div class="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/20 transition-colors duration-300"></div>
+          </button>
+          <% index += 1 %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Details grid -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 p-6 bg-stone-100 rounded-lg">
+    <% if content(:house_bedrooms).present? %>
+      <div class="text-center">
+        <p class="text-2xl font-light text-stone-800"><%= content(:house_bedrooms) %></p>
+        <p class="text-sm text-stone-500">Sovev&#230;relser</p>
+      </div>
+    <% end %>
+    <% if content(:house_bathrooms).present? %>
+      <div class="text-center">
+        <p class="text-2xl font-light text-stone-800"><%= content(:house_bathrooms) %></p>
+        <p class="text-sm text-stone-500">Badev&#230;relser</p>
+      </div>
+    <% end %>
+    <% if content(:house_max_guests).present? %>
+      <div class="text-center">
+        <p class="text-2xl font-light text-stone-800"><%= content(:house_max_guests) %></p>
+        <p class="text-sm text-stone-500">Max g&#230;ster</p>
+      </div>
+    <% end %>
+    <% if content(:house_sqm).present? %>
+      <div class="text-center">
+        <p class="text-2xl font-light text-stone-800"><%= content(:house_sqm) %></p>
+        <p class="text-sm text-stone-500">m&#178;</p>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Description -->
+  <% if content.html(:house_description).present? %>
+    <div class="prose prose-stone prose-lg max-w-none mb-10">
+      <%= content.html(:house_description) %>
+    </div>
+  <% end %>
+
+  <!-- Pricing -->
+  <% if content(:house_pricing).present? %>
+    <div class="mb-10 p-6 bg-emerald-50 rounded-lg border border-emerald-100">
+      <h2 class="text-lg font-medium text-stone-800 mb-2">Pris</h2>
+      <p class="text-xl text-emerald-700"><%= content(:house_pricing) %></p>
+    </div>
+  <% end %>
+
+  <!-- Contact -->
+  <% if content(:house_contact).present? %>
+    <div class="mb-10 p-6 bg-stone-100 rounded-lg">
+      <h2 class="text-lg font-medium text-stone-800 mb-2">Kontakt</h2>
+      <p class="text-stone-700 whitespace-pre-line"><%= content(:house_contact) %></p>
+    </div>
+  <% end %>
+
+  <!-- Lightbox overlay (reuses existing pattern from gallery.html.erb) -->
+  <div data-lightbox-target="overlay"
+       data-action="click->lightbox#backdropClick"
+       class="hidden fixed inset-0 z-50 bg-black/90 flex justify-center items-center">
+    <button type="button"
+            data-action="lightbox#close"
+            class="absolute top-4 right-4 text-white text-2xl h-10 w-10 flex items-center justify-center bg-gray-900/50 rounded-full hover:bg-gray-900/70 transition-colors">
+      <span class="sr-only">Luk</span>
+      &times;
+    </button>
+    <button type="button"
+            data-action="lightbox#previous"
+            class="absolute left-4 text-white text-2xl h-10 w-10 flex items-center justify-center bg-gray-900/50 rounded-full hover:bg-gray-900/70 transition-colors">
+      <span class="sr-only">Forrige</span>
+      &larr;
+    </button>
+    <img data-lightbox-target="image" src="" alt="" class="max-w-full max-h-full object-contain p-4">
+    <button type="button"
+            data-action="lightbox#next"
+            class="absolute right-4 text-white text-2xl h-10 w-10 flex items-center justify-center bg-gray-900/50 rounded-full hover:bg-gray-900/70 transition-colors">
+      <span class="sr-only">N&#230;ste</span>
+      &rarr;
+    </button>
+  </div>
+
+  <!-- Back link -->
+  <nav class="pt-8 border-t border-stone-200">
+    <a href="<%= spina.page_path(Spina::Page.find_by(view_template: 'houses')) %>" class="group inline-flex items-center text-stone-800 hover:text-emerald-700 transition-colors">
+      <svg class="mr-2 w-4 h-4 transform translate-x-0 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      <span class="text-lg">Tilbage til boliger</span>
+    </a>
+  </nav>
+</article>
