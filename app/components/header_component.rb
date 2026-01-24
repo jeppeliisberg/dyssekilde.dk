@@ -16,15 +16,16 @@ class HeaderComponent < ApplicationComponent
   end
 
   def locale_switch_path(locale)
-    # Try to get the translated path from Spina
-    if (page = helpers.current_page rescue nil)
-      I18n.with_locale(locale) do
-        return Spina::Page.find(page.id).materialized_path
-      end
+    # Try to get the translated path from Spina using the page passed to layout
+    page = helpers.instance_variable_get(:@page)
+
+    if page
+      path = I18n.with_locale(locale) { Spina::Page.find(page.id).materialized_path }
+      return path if path.present?
     end
 
     # Fallback for non-Spina pages: simple locale prefix swap
-    current_path = helpers.request.fullpath
+    current_path = helpers.request&.fullpath || "/"
     path_without_locale = current_path.sub(%r{^/(da|en)}, "")
     path_without_locale = "/" if path_without_locale.blank?
 
