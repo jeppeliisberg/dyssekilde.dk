@@ -27,10 +27,10 @@
           <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
             <!-- Thumbnail image -->
             <div class="aspect-[4/3] bg-stone-200 overflow-hidden">
-              <% house.images(:house_images) do |image| %>
-                <%= house.content.image_tag image, { resize_to_fill: [600, 450] },
+              <% first_image = house.find_part(:house_images)&.content&.first %>
+              <% if first_image %>
+                <%= house.content.image_tag first_image, { resize_to_fill: [600, 450] },
                     { class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" } %>
-                <% break %> <%# Only show first image %>
               <% end %>
             </div>
 

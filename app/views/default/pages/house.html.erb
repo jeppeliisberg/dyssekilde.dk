@@ -121,7 +121,8 @@
 
   <!-- Back link -->
   <nav class="pt-8 border-t border-stone-200">
-    <a href="<%= spina.page_path(Spina::Page.find_by(view_template: 'houses')) %>" class="group inline-flex items-center text-stone-800 hover:text-emerald-700 transition-colors">
+    <% houses_page = Spina::Page.find_by(view_template: 'houses') %>
+    <a href="<%= houses_page ? houses_page.materialized_path : spina.root_path %>" class="group inline-flex items-center text-stone-800 hover:text-emerald-700 transition-colors">
       <svg class="mr-2 w-4 h-4 transform translate-x-0 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
