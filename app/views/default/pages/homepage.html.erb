@@ -1,46 +1,63 @@
-<!-- Homepage content -->
-<article class="space-y-12">
-  <!-- Header section -->
-  <header class="space-y-4">
-    <h1 class="text-4xl md:text-5xl font-light text-stone-800 tracking-tight leading-tight">
-      <%= current_page.title %>
-    </h1>
-    <% if content.text(:subtitle).present? %>
-      <p class="text-xl md:text-2xl font-light text-stone-600">
-        <%= content.text(:subtitle) %>
-      </p>
+<div class="min-h-screen flex flex-col md:flex-row">
+  <!-- Left side: Hero image area -->
+  <div class="hero-image-side relative w-full md:w-1/2 h-64 md:h-auto md:min-h-screen md:sticky md:top-0">
+    <% if content.image_url(:hero_image).present? %>
+      <%= content.image_tag(:hero_image, { resize_to_limit: [1920, 1920] }, { class: "absolute inset-0 w-full h-full object-cover" }) %>
+      <div class="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent"></div>
+    <% else %>
+      <div class="absolute inset-0 bg-gradient-to-br from-stone-400 via-stone-500 to-stone-600"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent"></div>
     <% end %>
-  </header>
+  </div>
 
-  <!-- Main content from Spina -->
-  <% if content.html(:text).present? %>
-    <div class="prose prose-stone prose-lg max-w-none">
-      <div class="text-stone-700 leading-relaxed">
-        <%= content.html(:text) %>
-      </div>
-    </div>
-  <% end %>
+  <!-- Right side: Content area -->
+  <div class="content-side w-full md:w-1/2 flex flex-col">
+    <main class="flex-1 px-8 py-12 md:px-12 lg:px-16 md:py-16 lg:py-24">
+      <article class="space-y-12">
+        <!-- Header section -->
+        <header class="space-y-4">
+          <h1 class="text-4xl md:text-5xl font-light text-stone-800 tracking-tight leading-tight">
+            <%= current_page.title %>
+          </h1>
+          <% if content.text(:subtitle).present? %>
+            <p class="text-xl md:text-2xl font-light text-stone-600">
+              <%= content.text(:subtitle) %>
+            </p>
+          <% end %>
+        </header>
 
-  <!-- Site navigation from Spina -->
-  <% navigation = Spina::Navigation.find_by(name: 'main') %>
-  <% if navigation&.navigation_items&.any? %>
-    <nav class="pt-8 border-t border-stone-200">
-      <h2 class="text-sm font-medium uppercase tracking-wider text-stone-500 mb-6">
-        Sider
-      </h2>
-      <ul class="space-y-4">
-        <% navigation.navigation_items.each do |item| %>
-          <% next if item.page == current_page %>
-          <li>
-            <a href="<%= item.page.materialized_path %>" class="group flex items-center text-stone-800 hover:text-emerald-700 transition-colors">
-              <span class="text-lg"><%= item.page.menu_title.presence || item.page.title %></span>
-              <svg class="ml-2 w-4 h-4 opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
-          </li>
+        <!-- Main content from Spina -->
+        <% if content.html(:text).present? %>
+          <div class="prose prose-stone prose-lg max-w-none">
+            <div class="text-stone-700 leading-relaxed">
+              <%= content.html(:text) %>
+            </div>
+          </div>
         <% end %>
-      </ul>
-    </nav>
-  <% end %>
-</article>
+
+        <!-- Site navigation from Spina -->
+        <% navigation = Spina::Navigation.find_by(name: 'main') %>
+        <% if navigation&.navigation_items&.any? %>
+          <nav class="pt-8 border-t border-stone-200">
+            <h2 class="text-sm font-medium uppercase tracking-wider text-stone-500 mb-6">
+              Sider
+            </h2>
+            <ul class="space-y-4">
+              <% navigation.navigation_items.each do |item| %>
+                <% next if item.page == current_page %>
+                <li>
+                  <a href="<%= item.page.materialized_path %>" class="group flex items-center text-stone-800 hover:text-emerald-700 transition-colors">
+                    <span class="text-lg"><%= item.page.menu_title.presence || item.page.title %></span>
+                    <svg class="ml-2 w-4 h-4 opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </nav>
+        <% end %>
+      </article>
+    </main>
+  </div>
+</div>

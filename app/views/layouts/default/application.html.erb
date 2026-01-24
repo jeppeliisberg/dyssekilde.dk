@@ -8,34 +8,16 @@
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="h-full bg-stone-50">
+  <body class="min-h-full bg-stone-50">
     <% main_navigation = Spina::Navigation.find_by(name: 'main') %>
     <%= render HeaderComponent.new(
       navigation_items: main_navigation&.navigation_items || []
     ) %>
-    <div class="min-h-screen flex flex-col md:flex-row">
-      <!-- Left side: Hero image area -->
-      <div class="hero-image-side relative w-full md:w-1/2 h-64 md:h-auto md:min-h-screen md:sticky md:top-0">
-        <% if current_page.content.image_url(:hero_image).present? %>
-          <%= current_page.content.image_tag(:hero_image, { resize_to_limit: [1920, 1920] }, { class: "absolute inset-0 w-full h-full object-cover" }) %>
-          <div class="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent"></div>
-        <% else %>
-          <div class="absolute inset-0 bg-gradient-to-br from-stone-400 via-stone-500 to-stone-600"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent"></div>
-        <% end %>
-      </div>
 
-      <!-- Right side: Content area -->
-      <div class="content-side w-full md:w-1/2 flex flex-col">
-        <main class="flex-1 px-8 py-12 md:px-12 lg:px-16 md:py-16 lg:py-24">
-          <%= yield %>
-        </main>
+    <%= yield %>
 
-        <!-- Footer -->
-        <footer class="px-8 py-8 md:px-12 lg:px-16 text-sm text-stone-500">
-          <p>&copy; <%= Date.current.year %> <%= current_spina_account.name %></p>
-        </footer>
-      </div>
-    </div>
+    <footer class="px-8 py-8 text-center text-sm text-stone-500 border-t border-stone-200">
+      <p>&copy; <%= Date.current.year %> <%= current_spina_account.name %></p>
+    </footer>
   </body>
 </html>

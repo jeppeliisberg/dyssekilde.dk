@@ -23,7 +23,8 @@ Spina::Theme.register do |theme|
   theme.parts = [
     { name: "text", title: "Body", hint: "Your main content", part_type: "Spina::Parts::Text" },
     { name: "subtitle", title: "Subtitle", hint: "Shown below the page title", part_type: "Spina::Parts::Line" },
-    { name: "hero_image", title: "Hero Image", hint: "Full-height image shown on the left side", part_type: "Spina::Parts::Image" }
+    { name: "hero_image", title: "Hero Image", hint: "Full-height image shown on the left side", part_type: "Spina::Parts::Image" },
+    { name: "gallery_images", title: "Gallery Images", hint: "Images for the gallery grid", part_type: "Spina::Parts::ImageCollection" }
   ]
 
   # View templates
@@ -32,7 +33,8 @@ Spina::Theme.register do |theme|
   # by referencing them from the theme.parts configuration above.
   theme.view_templates = [
     { name: "homepage", title: "Homepage", parts: %w[hero_image subtitle text] },
-    { name: "show", title: "Page", parts: %w[hero_image text] }
+    { name: "show", title: "Page", parts: %w[hero_image text] },
+    { name: "gallery", title: "Gallery", parts: %w[text gallery_images] }
   ]
 
   # Custom pages
