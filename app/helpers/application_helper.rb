@@ -17,7 +17,7 @@ module ApplicationHelper
     image = find_og_image
     return nil unless image
 
-    url_for(image.file.variant(resize_to_fill: [ 1200, 630 ]))
+    current_page.content.image_url(image, resize_to_fill: [ 1200, 630 ])
   end
 
   private
