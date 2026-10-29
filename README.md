@@ -4,7 +4,7 @@ A Ruby on Rails 8.1 application for the Dyssekilde community.
 
 ## Requirements
 
-- Ruby 3.3.6
+- Ruby 3.3.13
 - PostgreSQL 16+
 - Node.js (for development tooling)
 
