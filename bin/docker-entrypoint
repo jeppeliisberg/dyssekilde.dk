@@ -1,8 +1,15 @@
 #!/bin/bash -e
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
-  ./bin/rails db:prepare
-fi
+# If running the rails server then create or migrate existing database.
+# Matches `bin/rails server` / `./bin/rails s` anywhere in the args, so it also
+# works behind a wrapper (./bin/thrust) and with trailing flags (-b, -p).
+prev=""
+for arg in "$@"; do
+  if [[ "$prev" == *bin/rails ]] && [[ "$arg" == "server" || "$arg" == "s" ]]; then
+    ./bin/rails db:prepare
+    break
+  fi
+  prev="$arg"
+done
 
 exec "${@}"
